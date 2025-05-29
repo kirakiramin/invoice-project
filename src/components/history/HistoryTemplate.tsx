@@ -57,7 +57,7 @@ const HistoryTemplate = forwardRef<HTMLDivElement, HistoryTemplateProps>(
         {/* 계산서 제목 */}
         <div className="invoice-title">
           <h2>計 算 書</h2>
-          <h3>대구중앙청과(주) 지정 중도매인 20번</h3>
+          <h3>농협</h3>
         </div>
 
         <div className="invoice-header">
