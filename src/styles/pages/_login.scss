@@ -1,0 +1,90 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+
+/* ----------------------
+로그인 페이지
+---------------------- */
+
+$primary-color: #4f46e5;
+$background-color: #f3f4f6;
+$border-radius: 12px;
+$transition-speed: 0.3s;
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: $background-color;
+
+  .login-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    background: #fff;
+    border-radius: $border-radius;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    h2 {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .input-group {
+      width: 100%;
+      text-align: left;
+      margin-bottom: 20px;
+
+      label {
+        font-size: 20px;
+        font-weight: 600;
+        color: #222;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      input {
+        width: 100%;
+        padding: 16px;
+        font-size: 20px;
+        border: 2px solid #ddd;
+        border-radius: $border-radius;
+        transition: border-color $transition-speed;
+        box-sizing: border-box;
+
+        &:focus {
+          border-color: $primary-color;
+          outline: none;
+        }
+      }
+    }
+
+    .error-message {
+      color: red;
+      font-size: 16px; // 오류 메시지 크기 소폭 감소 (18px → 16px)
+      margin-bottom: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 18px; // 버튼 크기 소폭 감소 (20px → 18px)
+      font-size: 22px; // 버튼 글자 크기 감소 (24px → 22px)
+      font-weight: bold;
+      color: #fff;
+      background-color: $primary-color;
+      border: none;
+      border-radius: $border-radius;
+      cursor: pointer;
+      transition: background-color $transition-speed;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+  }
+}

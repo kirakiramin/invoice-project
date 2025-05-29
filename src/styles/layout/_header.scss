@@ -1,0 +1,53 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+
+/* ----------------------
+헤더
+---------------------- */
+header {
+  @include top-fix;
+  height: 80px;
+
+  .header_wrapper {
+    @include flex-center-between;
+    padding: 15px;
+    border-bottom: 1px solid #111;
+    background-color: $bg-white;
+
+    h1, h2 {
+      font-weight: 800;
+      color: #0c243b;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+
+      span {
+        display: inline-block;
+        width: 42px;
+        height: 42px;
+        vertical-align: middle;
+        margin-right: 6px;
+        margin-bottom: 4px;
+      }
+    }
+
+    .btn-area {
+      @include flex-a-start;
+      gap: 16px;
+
+      button, a {
+        width: fit-content;
+        height: 50px;
+        box-sizing: border-box;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+
+/* ----------------------
+거래처 상세 페이지
+---------------------- */
+.layout-half {
+  display: flex;
+  height: 100%;
+
+  .input-group {
+    width: 50%;
+    padding: 8px 4px;
+    background-color: #fafafa;
+  }
+
+  .viewer-group {
+    width: 50%;
+    padding: 8px 4px;
+    box-sizing: border-box;
+  }
+}

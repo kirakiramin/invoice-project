@@ -1,0 +1,169 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+
+/* ----------------------
+테이블 공통
+---------------------- */
+.table-container {
+  width: 100%;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    background: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+  }
+
+  th, td {
+    font-size: 16px;
+    padding: 10px 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+  }
+}
+
+
+/* ----------------------
+거래처 구매 내역 리스트
+---------------------- */
+.order-history {
+  .table-container {
+    width: 50%;
+
+    .order-table {
+      thead {
+        position: sticky;
+        top: -1px;
+        z-index: 10;
+      }
+
+      td {
+        font-weight: 500;
+
+        &.total, &.balance {
+          text-align: right;
+        }
+      }
+
+      tbody tr {
+        cursor: pointer;
+      }
+
+      .selected-row {
+        background-color: #fffbf0;
+      }
+
+      .detail-button {
+        padding: 6px 12px;
+        border-radius: 4px;
+        @include secondary;
+        margin: 0 2.5px;
+
+        &.edit {
+          background-color: #d9534f;
+          border: 1px solid #d9534f;
+        }
+
+        &.img {
+          background-color: #17a2b8;
+          border: 1px solid #17a2b8;
+        }
+      }
+    }
+
+    .observer-trigger {
+      height: 1px;
+      width: 100%;
+    }
+  }
+}
+
+
+/* ----------------------
+거래처별 잔금 내역 리스트
+---------------------- */
+.amount-table {
+  thead {
+    position: sticky;
+    top: -1px;
+    z-index: 10;
+  }
+
+  td {;
+    padding: 14px 18px;
+    font-weight: 500;
+
+    &.id, &.itemId {
+      width: 50px;
+    }
+
+    &.date {
+      width: 21%;
+    }
+
+    &.store {
+      width: 26%;
+    }
+
+    &.contact {
+      width: 19%;
+    }
+
+    &.balance {
+      width: 25%;
+
+      &.balance-positive {
+        color: #d9534f;
+        font-weight: bold;
+      }
+    }
+
+    &.name {
+      width: 25%;
+    }
+
+    &.spec {
+      width: 17%;
+    }
+
+    &.quantity {
+      width: 20%;
+    }
+
+    &.amount {
+      width: 30%;
+    }
+  }
+}
+
+
+//테스트
+.invoice-download-style {
+  .invoice {
+    background: white;
+    color: #000;
+    font-size: 14px;
+    padding: 24px;
+    width: 800px;
+    box-sizing: border-box;
+  }
+
+  .invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .invoice-table th,
+  .invoice-table td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: center;
+  }
+}

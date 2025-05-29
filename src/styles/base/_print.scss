@@ -1,0 +1,130 @@
+@use "../abstracts" as *;
+
+/* ----------------------
+프린트
+---------------------- */
+
+@media print {
+  //@page {
+  //  size: A4 landscape;
+  //  margin: 1mm;
+  //}
+
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    font-size: 12px;
+    background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  * {
+    box-sizing: border-box;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  header, footer {
+    display: none !important;
+  }
+
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+  }
+
+  table th,
+  table td {
+    font-size: 14px !important;
+    padding: 6px !important;
+    text-align: center !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+  }
+
+  .invoice-print {
+    table th,
+    table td {
+      font-size: 12px !important;
+      padding: 3px !important;
+    }
+
+    table th:first-child,
+    table td:first-child {
+      min-width: 30px !important;
+      width: 30px !important;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .print-half {
+      flex: none !important;
+      width: 148mm !important;
+      max-width: 148mm !important;
+      padding: 1mm !important;
+      box-sizing: border-box !important;
+      font-size: 12px !important;
+      line-height: 1 !important;
+      overflow: hidden !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+
+    .print-half > *:first-child {
+      margin-top: 0 !important;
+      padding-top: 2mm !important;
+    }
+  }
+
+  .invoice {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .site-content,
+  .no-print {
+    display: none !important;
+  }
+  .invoice .invoice-summary {
+    margin-top: 0;
+  }
+  .invoice .invoice-summary p {
+    font-size: 12px !important;
+    margin: 0;
+  }
+  .invoice-header {
+    padding-bottom: 0;
+  }
+  .invoice-header p {
+    font-size: 12px !important;
+  }
+  .invoice-header .header-right strong {
+    font-size: 12px !important;
+  }
+  .invoice-header strong {
+    font-size: 14px !important;
+  }
+  .divider {
+    margin: 1px 0;
+  }
+  .invoice-header + .divider,
+  table + .divider {
+    display: none;
+    margin: 0;
+  }
+}
+
+/* ----------------------
+화면에는 안 보이고 인쇄 시만 보이게
+---------------------- */
+.print-only {
+  display: none !important; // 화면에서는 숨김
+
+  @media print {
+    display: block !important; // 인쇄할 땐 보이게
+  }
+}

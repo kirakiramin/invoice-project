@@ -1,0 +1,116 @@
+@use "../abstracts" as *;
+
+/* ----------------------
+공통
+---------------------- */
+html {
+  width: 100%;
+  height: 100%;
+}
+
+//타이포그래피 Typography
+body {
+  width: 100%;
+  height: 100%;
+  font-family: $font;
+  color: $font-basic;
+}
+
+h1, h2, h3, h4, h5, h6, div p, a {
+  font-family: $font;
+  color: $font-basic;
+  font-weight: $regular;
+  text-decoration: none;
+}
+
+.ellipsis {
+  @include ellipsis;
+}
+
+
+//레이아웃
+.site {
+  min-height: 100vh;
+  @include flex-column;
+  /* [footer 하단고정] body에 추가 */
+}
+
+.site-content {
+  flex: 1;
+  /* [footer 하단고정] main에 추가 */
+}
+
+.container {
+  width: 1380px;
+  margin: 0 auto;
+}
+
+.main-wrapper {
+  margin-top: 81px;
+}
+
+.main-wrapper section {
+  padding: 40px 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+
+.f_b_c {
+  @include flex-center-between;
+}
+
+.a_center {
+  @include absolute-center;
+}
+
+
+//이미지
+img {
+  @include width-100;
+}
+
+//가로 너비
+.w-50 {
+  width: 50%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+//밑줄 강조
+.under-line {
+  @include custom-under-line;
+}
+
+//구분선
+.divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 10px 0;
+
+  &.narrow {
+    margin: 5px 0;
+  }
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+}
+
+.ml-8 {
+  margin-left: 8px;
+}

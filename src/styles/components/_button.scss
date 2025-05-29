@@ -1,0 +1,87 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+
+/* ----------------------
+버튼
+---------------------- */
+button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+//기본 버튼
+button.default, a.default {
+  width: 100%;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 15px 30px;
+  transition: 0.14s;
+  @include line-primary;
+
+  &:hover {
+    @include bg-primary;
+  }
+
+  &.primary {
+    @include bg-primary;
+
+    &:hover {
+      @include line-primary;
+    }
+  }
+}
+
+button, a {
+  svg {
+    margin-right: 7px;
+  }
+}
+
+.order-table {
+  button, a {
+    svg {
+      margin-right: 0px;
+    }
+  }
+}
+
+//닫기 버튼 공통
+.remove-btn, .close-btn {
+  background: #E53E3E;
+  color: $font-white;
+  font-size: 14px;
+  padding: 3px 6px;
+  border-radius: 4px;
+
+  &:hover {
+    background: #b02a37;
+  }
+}
+
+//프린트
+.print-btn {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  margin-top: 8px;
+  @include secondary;
+}
+
+.sort-button {
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background: #6A5D7B;
+  border-radius: 4px;
+
+  &:nth-of-type(2) {
+    background: #557A68;
+  }
+
+  &:nth-of-type(3) {
+    background: #A65E4B;
+  }
+}

@@ -1,0 +1,94 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+@use "../components" as *;
+
+/* ----------------------
+합계 확인 페이지
+---------------------- */
+.amount-wrapper {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.amount-list {
+  flex: 7;
+}
+
+.amount-summary {
+  flex: 3;
+  padding: 12px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 36px;
+
+  .summary-header {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+
+    .month-selector {
+      width: 70%;
+      font-size: 18px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #fff;
+      color: #333;
+
+      &:hover {
+        border-color: #888;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #555;
+      }
+    }
+
+    .print-button {
+      width: 30%;
+      height: 48.5px;
+      border-radius: 4px;
+      padding: 10px 12px;
+      font-size: 16px;
+      font-weight: 500;
+      background-color: #4a5568;
+      border: 1px solid #4a5568;
+      color: #fff;
+
+    }
+  }
+
+  .summary-content {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    .summary-amount {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #ddd;
+    }
+  }
+
+  .summary-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 6px;
+  }
+
+  .sort-buttons {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+

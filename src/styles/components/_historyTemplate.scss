@@ -1,0 +1,27 @@
+@use "../abstracts" as *;
+@use "../base" as *;
+
+/* ----------------------
+거래처 내역 상세 뷰어
+---------------------- */
+.order-history {
+  .invoice {
+    width: 50%;
+    border: 0;
+    border-left: 1px solid #111;
+    padding: 12px 20px;
+    overflow-y: auto;
+    height: calc(100vh - 84px);
+    position: relative;
+
+    .invoice-table {
+      margin: 0 0 10px 0;
+
+      thead {
+        position: sticky;
+        top: -13px;
+        z-index: 10;
+      }
+    }
+  }
+}
