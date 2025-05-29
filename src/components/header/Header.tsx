@@ -44,7 +44,7 @@ const Header = ({onClientRegistered}: { onClientRegistered: () => void }) => {
       <div className="container">
         <div className="header_wrapper">
           <Link href="/main">
-            <h1>중앙청과 20번</h1>
+            <h1>농협 369번</h1>
           </Link>
           <div className="btn-area">
             <button className="primary default" onClick={() => setIsRegisterModalOpen(true)}>

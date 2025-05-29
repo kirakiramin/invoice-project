@@ -11,8 +11,8 @@ import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {login} from "@/utils/api";
 
-const fixedUserId = "user20"; // 고정 아이디
-const fixedPassword = "2020"; // 고정 비밀번호
+const fixedUserId = "user369"; // 고정 아이디
+const fixedPassword = "369"; // 고정 비밀번호
 
 
 const LoginForm = () => {
