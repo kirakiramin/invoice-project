@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Client {
+  id         Int       @id @default(autoincrement())
+  name       String    @db.VarChar(255)
+  phone      String?   @db.VarChar(20)
+  note       String?
+  isFavorite Boolean   @default(false)
+  balance    Int       @default(0)
+  createDate DateTime  @default(now())
+  updateDate DateTime  @default(now())
+  invoices   Invoice[]
+
+  @@map("Client")
+}
+
+model Invoice {
+  id         Int             @id @default(autoincrement())
+  no         Int             @default(1)
+  clientId   Int
+  balance    Int             @default(0)
+  note       String?
+  payment    Int             @default(0)
+  createDate DateTime        @default(now())
+  updateDate DateTime        @updatedAt
+  client     Client          @relation(fields: [clientId], references: [id])
+  details    InvoiceDetail[]
+}
+
+model InvoiceDetail {
+  id        Int     @id @default(autoincrement())
+  invoiceId Int
+  name      String  @db.VarChar(255)
+  spec      String? @db.VarChar(255)
+  quantity  Int     @default(1)
+  price     Int     @default(0)
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+}

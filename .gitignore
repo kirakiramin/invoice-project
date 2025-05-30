@@ -42,6 +42,3 @@ next-env.d.ts
 
 # JetBrains IDE 설정 폴더 제외
 .idea/
-
-.prisma/
-prisma/
