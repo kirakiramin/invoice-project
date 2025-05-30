@@ -5,7 +5,7 @@ export async function POST() {
   const response = NextResponse.json({message: "로그인 성공"});
 
   response.cookies.set({
-    name: "isLoggedIn",
+    name: "isLoggedInInvoice369",
     value: "true",
     httpOnly: true, // JavaScript에서 접근 불가능 (보안 강화)
     sameSite: "strict", // CSRF 공격 방지
