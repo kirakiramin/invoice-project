@@ -57,7 +57,7 @@ const HistoryTemplate = forwardRef<HTMLDivElement, HistoryTemplateProps>(
         {/* 계산서 제목 */}
         <div className="invoice-title">
           <h2>計 算 書</h2>
-          <h3>농협</h3>
+          {/*<h3>농협북대구공판장</h3>*/}
         </div>
 
         <div className="invoice-header">
@@ -81,12 +81,12 @@ const HistoryTemplate = forwardRef<HTMLDivElement, HistoryTemplateProps>(
 
           {/* 우측: 판매자 정보 */}
           <div className="header-right">
-            <p className="spacing"><strong>중앙영농 (주)</strong></p>
-            <p className="spacing">서영민</p>
-            <p>대구광역시 북구 매천로18길 34</p>
-            <p><strong>전화:</strong> (053) 311-4149</p>
-            <p><strong>휴대폰:</strong> 010-7710-1883</p>
-            <p><strong>휴대폰:</strong> 010-8596-4149</p>
+            <p className="spacing"><strong>농협북대구공판장</strong></p>
+            <p className="spacing"><strong>중도매인 369번</strong></p>
+            <p className="spacing"><strong className="point">동남상회</strong></p>
+            <p className="spacing">대표 이준걸</p>
+            <p>대구광역시 북구 매천로18길 34(매천동)</p>
+            <p>휴대폰: 010-4055-9770</p>
           </div>
         </div>
 
@@ -163,7 +163,7 @@ const HistoryTemplate = forwardRef<HTMLDivElement, HistoryTemplateProps>(
 
         {/* 푸터 */}
         <div className="invoice-footer">
-          <p>농협: 317-0003-6690-11 중앙영농(주)</p>
+          <p>농협: 302-1002-2421-21 이준걸</p>
         </div>
       </div>
     );
