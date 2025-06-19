@@ -83,6 +83,13 @@
   .invoice {
     margin-top: 0 !important;
     padding-top: 0 !important;
+
+    .invoice-table {
+      td.price, td.total {
+        text-align: right !important;
+        padding: 3px 10px !important;
+      }
+    }
   }
 
   .site-content,

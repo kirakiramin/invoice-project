@@ -89,6 +89,7 @@ const ClientInputForm = ({invoiceData, setInvoiceData, setIsUpdated}: ClientInpu
 
   // 현재 포커스된 `input`의 index 저장
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+  const [focusedField, setFocusedField] = useState<FocusableField | null>(null);
 
   // 과일 선택 모달 표시 여부
   const [showFruitOptions, setShowFruitOptions] = useState(false);
@@ -146,8 +147,9 @@ const ClientInputForm = ({invoiceData, setInvoiceData, setIsUpdated}: ClientInpu
   });
 
   // `input` 포커스 핸들러 (현재 포커스된 `input`의 index를 설정)
-  const handleFocus = (index: number) => {
+  const handleFocus = (index: number, field: FocusableField) => {
     setFocusedIndex(index);
+    setFocusedField(field);
   };
 
   // `input`에서 Enter 키 입력 시 다음 필드로 포커스 이동
@@ -180,17 +182,24 @@ const ClientInputForm = ({invoiceData, setInvoiceData, setIsUpdated}: ClientInpu
   };
 
 
-  // 과일 옵션 클릭 핸들러 (선택된 과일을 현재 포커스된 항목의 `name` 필드에 입력)
+  // 과일 옵션 클릭 핸들러 (선택된 과일을 현재 포커스된 항목의 name,spec 필드에 입력)
   const handleFruitClick = (fruit: string) => {
-    if (focusedIndex === null) return; // 포커스된 input이 없으면 실행 안 함
+    if (focusedIndex === null || focusedField === null) return;
 
     setFormData((prev) => {
       const updatedItems = prev.items.map((item, i) =>
-        i === focusedIndex ? {...item, name: fruit} : item
+        i === focusedIndex ? {...item, [focusedField]: fruit} : item
       );
       return {...prev, items: updatedItems};
     });
+
+    // 클릭 후 포커스 다시 설정 (0.1초 뒤에 실행)
+    setTimeout(() => {
+      const ref = itemRefs.current[focusedIndex]?.[focusedField];
+      ref?.focus();
+    }, 10);
   };
+
 
   // 일반 입력 필드 변경 핸들러 (숫자 입력값은 `formatNumber` 적용)
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -367,7 +376,7 @@ const ClientInputForm = ({invoiceData, setInvoiceData, setIsUpdated}: ClientInpu
                 itemRefs.current[index].name = el;
               }}
               onKeyDown={(e) => handleEnterKey(e, index, "name")}
-              onFocus={() => handleFocus(index)} // 포커스 감지
+              onFocus={() => handleFocus(index, "name")} // 포커스 감지
               onChange={(e) => handleItemChange(index, "name", e.target.value)}
             />
             <input
@@ -379,6 +388,7 @@ const ClientInputForm = ({invoiceData, setInvoiceData, setIsUpdated}: ClientInpu
                 itemRefs.current[index].spec = el;
               }}
               onKeyDown={(e) => handleEnterKey(e, index, "spec")}
+              onFocus={() => handleFocus(index, "spec")}
               onChange={(e) => handleItemChange(index, "spec", e.target.value)}
             />
             <input
