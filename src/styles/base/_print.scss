@@ -123,6 +123,18 @@
     display: none;
     margin: 0;
   }
+
+  .amount-table {
+    td.amount {
+      text-align: right !important;
+      padding: 3px 18px !important;
+    }
+
+    td.right {
+      text-align: right !important;
+      padding: 3px 18px !important;
+    }
+  }
 }
 
 /* ----------------------

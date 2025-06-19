@@ -50,7 +50,7 @@ const ClientAmountTable = ({data, amountLabel}: AmountTableProps) => {
             <td className="date">{formatDate(latestDate)}</td>
             <td className="store">{name}</td>
             <td className="contact">{phone ? formatPhone(phone) : ''}</td>
-            <td>{amount.toLocaleString()} 원</td>
+            <td className="right">{amount.toLocaleString()} 원</td>
           </tr>
         ))}
         </tbody>
