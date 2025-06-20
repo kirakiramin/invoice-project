@@ -39,7 +39,7 @@
 
   table th,
   table td {
-    font-size: 14px !important;
+    font-size: 15px !important;
     padding: 6px !important;
     text-align: center !important;
     word-break: break-word !important;
@@ -49,7 +49,7 @@
   .invoice-print {
     table th,
     table td {
-      font-size: 12px !important;
+      font-size: 15px !important;
       padding: 3px !important;
     }
 
@@ -85,6 +85,7 @@
     padding-top: 0 !important;
 
     .invoice-table {
+
       td.price, td.total {
         text-align: right !important;
         padding: 3px 10px !important;
@@ -100,20 +101,23 @@
     margin-top: 0;
   }
   .invoice .invoice-summary p {
-    font-size: 12px !important;
+    font-size: 15px !important;
     margin: 0;
   }
   .invoice-header {
     padding-bottom: 0;
   }
   .invoice-header p {
-    font-size: 12px !important;
-  }
-  .invoice-header .header-right strong {
-    font-size: 12px !important;
-  }
-  .invoice-header strong {
     font-size: 14px !important;
+  }
+  .invoice-header .header-right p {
+    font-size: 12px !important;
+  }
+  .invoice-header .header-right p strong {
+    font-size: 14px !important;
+  }
+  .invoice-header .header-left .store strong {
+    font-size: 17px !important;
   }
   .divider {
     margin: 1px 0;

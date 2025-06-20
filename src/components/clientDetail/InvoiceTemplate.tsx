@@ -131,7 +131,7 @@ const InvoiceTemplate = ({
       <table className="invoice-table">
         <thead>
         <tr>
-          <th className="no">No.</th>
+          <th className="no">No</th>
           <th className="name">품명</th>
           <th className="spec">규격</th>
           <th className="quantity">수량</th>

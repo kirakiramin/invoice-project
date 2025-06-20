@@ -355,7 +355,7 @@ const ClientInputForm = ({invoiceData, setInvoiceData, setIsUpdated}: ClientInpu
       {/* 품목 입력 */}
       <div className=" item-group">
         <div className="input-header">
-          <span className="left">No.</span>
+          <span className="left">No</span>
           <span>품명</span>
           <span>규격</span>
           <span>수량</span>
