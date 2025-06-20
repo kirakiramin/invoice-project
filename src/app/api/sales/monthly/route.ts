@@ -23,8 +23,8 @@ export async function GET(req: NextRequest) {
         amount: number;
       }[]
     >`
-        SELECT id.name,
-               id.spec,
+        SELECT TRIM(id.name)               AS name,
+               TRIM(id.spec)               AS spec,
                SUM(id.quantity)            AS quantity,
                SUM(id.quantity * id.price) AS amount
         FROM "InvoiceDetail" AS id
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
         WHERE i."createDate" >= ${fromDate}
           AND i."createDate" < ${toDate}
           AND id.name != '전잔금'
-        GROUP BY id.name, id.spec
+        GROUP BY TRIM (id.name), TRIM (id.spec)
     `;
 
     const response = results.map((item) => ({
