@@ -29,8 +29,9 @@ export async function GET(req: NextRequest) {
                SUM(id.quantity * id.price) AS amount
         FROM "InvoiceDetail" AS id
                  INNER JOIN "Invoice" AS i ON i.id = id."invoiceId"
-        WHERE i."createDate" >= ${fromDate}
-          AND i."createDate" < ${toDate}
+        WHERE i."createDate" + interval '9 hours' >= ${fromDate}
+          AND i."createDate" + interval '9 hours'
+            < ${toDate}
           AND id.name != '전잔금'
         GROUP BY TRIM (id.name), TRIM (id.spec)
     `;
