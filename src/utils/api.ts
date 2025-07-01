@@ -159,7 +159,6 @@ export const getClientBalance = async () => {
 };
 
 // 월별 매출 현황을 가져오는 api
-// 예시 결과 데이터 : {baseUrl}/api/sales?month=2025-04
 export const getClientSales = async (month: string) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -266,7 +265,6 @@ export const updateInvoice = async (invoiceData: InvoiceRequest & { id: number }
 
 
 // 월별 품목별 판매 현황을 가져오는 API
-// 예시 결과 데이터: {baseUrl}/api/sales/monthly?month=2025-04
 export const getMonthlySales = async (month: string) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
