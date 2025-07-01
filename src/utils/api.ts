@@ -158,28 +158,8 @@ export const getClientBalance = async () => {
   }
 };
 
-// api/remain 의 api 호출 함수
-// 거래처 잔금 확인용 api
 // 월별 매출 현황을 가져오는 api
 // 예시 결과 데이터 : {baseUrl}/api/sales?month=2025-04
-//{
-// "clients": [
-// {
-// "clientId": 3,
-// "name": "test",
-// "phone": "",
-// "latestDate": "2025-04-24T03:10:27.904Z",
-// "totalSales": "1500"
-// },
-// {
-// "clientId": 1,
-// "name": "테스트222",
-// "phone": "01001010",
-// "latestDate": "2025-04-10T06:27:24.211Z",
-// "totalSales": "46500"
-// }
-// ]
-// }
 export const getClientSales = async (month: string) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -287,32 +267,6 @@ export const updateInvoice = async (invoiceData: InvoiceRequest & { id: number }
 
 // 월별 품목별 판매 현황을 가져오는 API
 // 예시 결과 데이터: {baseUrl}/api/sales/monthly?month=2025-04
-// [
-// {
-// "name": "딸기",
-// "spec": "c",
-// "quantity": 6,
-// "amount": 63000
-// },
-// {
-// "name": "복숭아",
-// "spec": "a",
-// "quantity": 2,
-// "amount": 6000
-// },
-// {
-// "name": "복숭아",
-// "spec": "b",
-// "quantity": 1,
-// "amount": 500
-// },
-// {
-// "name": "복숭아",
-// "spec": "e",
-// "quantity": 1,
-// "amount": 500
-// }
-// ]
 export const getMonthlySales = async (month: string) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
