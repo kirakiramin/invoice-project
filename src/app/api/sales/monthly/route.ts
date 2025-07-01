@@ -11,10 +11,6 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({error: 'Invalid or missing `month` query param (format: YYYY-MM)'}, {status: 400});
     }
 
-    const [year, month] = monthParam.split('-').map(Number);
-    const fromDate = new Date(year, month - 1, 1);
-    const toDate = new Date(year, month, 1); // 다음 달 1일
-
     const results = await prisma.$queryRaw<
       {
         name: string;
@@ -29,9 +25,7 @@ export async function GET(req: NextRequest) {
                SUM(id.quantity * id.price) AS amount
         FROM "InvoiceDetail" AS id
                  INNER JOIN "Invoice" AS i ON i.id = id."invoiceId"
-        WHERE i."createDate" + interval '9 hours' >= ${fromDate}
-          AND i."createDate" + interval '9 hours'
-            < ${toDate}
+        WHERE TO_CHAR(i."createDate" + interval '9 hours', 'YYYY-MM') = ${monthParam}
           AND id.name != '전잔금'
         GROUP BY TRIM (id.name), TRIM (id.spec)
     `;
