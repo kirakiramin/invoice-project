@@ -38,6 +38,7 @@ const InvoiceTemplate = ({
   const router = useRouter();
   // 확인 여부 상태 (제출 후 true)
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 소계 계산: 각 품목의 금액 합계
   const subtotal = invoiceData.items.reduce((sum, item) => {
@@ -53,9 +54,14 @@ const InvoiceTemplate = ({
 
   // 서버로 데이터 전송
   const handleConfirm = async () => {
+    // 이미 제출 중이라면 중복 실행 방지
+    if (isSubmitting) return;
+
+    setIsSubmitting(true); // 처리 시작
 
     if (!isUpdated) {
       alert("먼저 반영하기 버튼을 눌러주세요.");
+      setIsSubmitting(false); // 실패 시 다시 활성화
       return;
     }
 
@@ -112,6 +118,9 @@ const InvoiceTemplate = ({
     } catch (error) {
       console.error("인보이스 확정 중 오류:", error);
       alert("서버 요청 중 오류가 발생했습니다.");
+    } finally {
+      // 요청 성공/실패 상관없이 처리 종료
+      setIsSubmitting(false);
     }
   };
 
@@ -121,6 +130,7 @@ const InvoiceTemplate = ({
         <button
           className={isConfirmed ? "active" : "inactive"}
           onClick={handleConfirm}
+          disabled={isSubmitting} // 중복 클릭 방지
         >
           <FontAwesomeIcon icon={faCircleCheck} className="icon"/>
           {isEditMode ? "수정하기" : "확정하기"}
