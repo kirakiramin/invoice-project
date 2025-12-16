@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import React from 'react';
 import HeaderHome from "@/components/header/HeaderHome";
 import ProductAmountSection from "@/components/common/ProductAmountSection";

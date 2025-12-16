@@ -1,6 +1,7 @@
 @use "../abstracts" as *;
 @use "../base" as *;
 @use "../components" as *;
+@use "sass:color";
 
 /* ----------------------
 로그인 페이지
@@ -83,7 +84,7 @@ $transition-speed: 0.3s;
       transition: background-color $transition-speed;
 
       &:hover {
-        background-color: darken($primary-color, 10%);
+        background-color: color.scale($primary-color, $lightness: -10%);
       }
     }
   }
