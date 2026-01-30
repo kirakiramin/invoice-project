@@ -101,7 +101,7 @@
   vertical-align: middle;
 }
 
-@mixin custom-under-line($color: #D4EDFF) {
+@mixin custom-under-line($color: #d4edff) {
   background-image: linear-gradient($color, $color);
   background-repeat: no-repeat;
   background-position: 0 100%;
@@ -111,11 +111,11 @@
 
 // 반응형
 $breakpoints: (
-        small: 480px,
-        xsmall:550px,
-        medium: 768px,
-        large: 1024px,
-        xlarge: 1360px
+  small: 480px,
+  xsmall: 550px,
+  medium: 768px,
+  large: 1024px,
+  xlarge: 1360px,
 );
 
 @mixin respond-to($size) {
@@ -127,11 +127,6 @@ $breakpoints: (
     @error "Unknown breakpoint: #{$size}.";
   }
 }
-
-//@include respond-to(large) {
-//  gap: 20px;
-//}
-
 
 // 컬러
 @mixin bg-primary {
@@ -147,8 +142,8 @@ $breakpoints: (
 }
 
 @mixin secondary {
-  background-color: #4A5568;
-  border: 1px solid #4A5568;
+  background-color: #4a5568;
+  border: 1px solid #4a5568;
   color: $font-white;
 }
 
