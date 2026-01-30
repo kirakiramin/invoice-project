@@ -85,11 +85,11 @@ const HistoryTable = ({
   // 동적으로 주문 데이터를 관리
   const [data, setData] = useState<OrderData[]>([]); // 전체 주문 데이터
 
-  // 수정: 스크롤 컨테이너를 root로 지정하기 위한 ref 추가
-  const containerRef = useRef<HTMLDivElement | null>(null); // 수정: 스크롤 컨테이너 ref
+  // 스크롤 컨테이너를 root로 지정하기 위한 ref 추가
+  const containerRef = useRef<HTMLDivElement | null>(null); // 스크롤 컨테이너 ref
 
-  // 수정: observerRef는 감지 대상(트리거) ref로 유지하되 의미를 명확히
-  const observerRef = useRef<HTMLDivElement | null>(null); // 수정: IntersectionObserver 타겟(트리거) ref
+  // observerRef는 감지 대상(트리거) ref로 유지하되 의미를 명확히
+  const observerRef = useRef<HTMLDivElement | null>(null); // IntersectionObserver 타겟(트리거) ref
 
   const [selectedOrder, setSelectedOrder] = useState<OrderData | null>(null); // 현재 선택된 주문
 
@@ -153,31 +153,31 @@ const HistoryTable = ({
 
   // Intersection Observer 설정 (무한 스크롤)
   useEffect(() => {
-    // 수정: root(스크롤 컨테이너)와 target(트리거) 둘 다 있어야 감지 가능
+    // root(스크롤 컨테이너)와 target(트리거) 둘 다 있어야 감지 가능
     if (!containerRef.current || !observerRef.current) return;
 
-    // 수정: 스크롤 컨테이너를 root로 지정 (overflow-y: auto 환경에서 윈도우에서도 안정적)
-    const root = containerRef.current; // 수정
+    // 스크롤 컨테이너를 root로 지정 (overflow-y: auto 환경에서 윈도우에서도 안정적)
+    const root = containerRef.current;
     const target = observerRef.current;
 
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && state.loadedItems < data.length) {
-          // 수정: setTimeout은 불필요하면 제거해도 되지만, 기존 동작 유지하려면 남겨도 됨
+          // setTimeout은 불필요하면 제거해도 되지만, 기존 동작 유지하려면 남겨도 됨
           setTimeout(() => {
             dispatch({ type: "LOAD_MORE" });
           }, 500);
         }
       },
       {
-        // 수정: 무한 스크롤이 table-container 내부 스크롤 기준으로 동작하도록 root 지정
-        root, // 수정
+        // 무한 스크롤이 table-container 내부 스크롤 기준으로 동작하도록 root 지정
+        root,
 
-        // 수정: threshold 1.0은 1px 트리거 + 윈도우 배율/줌 환경에서 교차가 안 잡힐 수 있음
-        threshold: 0, // 수정: 0 또는 0.01 추천
+        // threshold 1.0은 1px 트리거 + 윈도우 배율/줌 환경에서 교차가 안 잡힐 수 있음
+        threshold: 0, // 0 또는 0.01 추천
 
-        // 수정: 바닥에 닿기 전에 미리 로딩해서 끊김 줄임 (윈도우 환경 안정성에도 도움)
-        rootMargin: "200px 0px", // 수정
+        // 바닥에 닿기 전에 미리 로딩해서 끊김 줄임 (윈도우 환경 안정성에도 도움)
+        rootMargin: "200px 0px",
       },
     );
 
@@ -185,7 +185,7 @@ const HistoryTable = ({
 
     return () => observer.disconnect();
 
-    // 수정: containerRef는 ref 객체라 deps에 넣지 않음(변하지 않음)
+    // containerRef는 ref 객체라 deps에 넣지 않음(변하지 않음)
   }, [state.loadedItems, data.length]);
 
   // 주문 항목 클릭 시 실행
@@ -208,7 +208,7 @@ const HistoryTable = ({
   };
 
   return (
-    // 수정: 스크롤 컨테이너에 ref 연결 (IntersectionObserver root로 사용)
+    // 스크롤 컨테이너에 ref 연결 (IntersectionObserver root로 사용)
     <div className="table-container" ref={containerRef}>
       <table className="order-table">
         <thead>
@@ -246,7 +246,7 @@ const HistoryTable = ({
                     <button
                       className="detail-button edit"
                       onClick={(e) => {
-                        e.stopPropagation(); // 수정: 부모 row 클릭 방지
+                        e.stopPropagation(); // 부모 row 클릭 방지
                         router.push(
                           `/client-detail/edit-invoice?invoiceId=${order.id}&clientId=${clientId}&name=${encodeURIComponent(clientName)}`,
                         );
