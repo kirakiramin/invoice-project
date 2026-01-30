@@ -80,7 +80,7 @@ table {
     }
 
     .observer-trigger {
-      height: 1px;
+      height: 60px; // 수정: 기존 1px → 60px
       width: 100%;
     }
   }
