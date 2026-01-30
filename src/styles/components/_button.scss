@@ -12,12 +12,16 @@ button {
 }
 
 //기본 버튼
-button.default, a.default {
+button.default,
+a.default {
   width: 100%;
   font-size: 15px;
   font-weight: 500;
   padding: 15px 30px;
   transition: 0.14s;
+  line-height: 1;
+  display: flex;
+  align-items: center;
   @include line-primary;
 
   &:hover {
@@ -33,14 +37,16 @@ button.default, a.default {
   }
 }
 
-button, a {
+button,
+a {
   svg {
     margin-right: 7px;
   }
 }
 
 .order-table {
-  button, a {
+  button,
+  a {
     svg {
       margin-right: 0px;
     }
@@ -48,8 +54,9 @@ button, a {
 }
 
 //닫기 버튼 공통
-.remove-btn, .close-btn {
-  background: #E53E3E;
+.remove-btn,
+.close-btn {
+  background: #e53e3e;
   color: $font-white;
   font-size: 14px;
   padding: 3px 6px;
@@ -74,14 +81,14 @@ button, a {
   font-size: 14px;
   font-weight: 500;
   color: white;
-  background: #6A5D7B;
+  background: #6a5d7b;
   border-radius: 4px;
 
   &:nth-of-type(2) {
-    background: #557A68;
+    background: #557a68;
   }
 
   &:nth-of-type(3) {
-    background: #A65E4B;
+    background: #a65e4b;
   }
 }

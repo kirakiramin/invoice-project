@@ -20,7 +20,8 @@ table {
     color: #333;
   }
 
-  th, td {
+  th,
+  td {
     font-size: 16px;
     padding: 10px 8px;
     text-align: center;
@@ -28,7 +29,6 @@ table {
     vertical-align: middle;
   }
 }
-
 
 /* ----------------------
 거래처 구매 내역 리스트
@@ -47,7 +47,8 @@ table {
       td {
         font-weight: 500;
 
-        &.total, &.balance {
+        &.total,
+        &.balance {
           text-align: right;
         }
       }
@@ -85,7 +86,6 @@ table {
   }
 }
 
-
 /* ----------------------
 거래처별 잔금 내역 리스트
 ---------------------- */
@@ -96,11 +96,12 @@ table {
     z-index: 10;
   }
 
-  td {;
+  td {
     padding: 14px 18px;
     font-weight: 500;
 
-    &.id, &.itemId {
+    &.id,
+    &.itemId {
       width: 50px;
     }
 
@@ -140,7 +141,7 @@ table {
     &.amount {
       width: 24%;
       text-align: right;
-      padding: 10px 25px
+      padding: 10px 25px;
     }
   }
 }
