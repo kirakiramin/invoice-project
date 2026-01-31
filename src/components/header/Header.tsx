@@ -7,12 +7,18 @@
  */
 
 "use client";
-import {useState, useCallback} from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus, faWonSign, faCoins, faWallet} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlus,
+  faWonSign,
+  faCoins,
+  faWallet,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import ClientRegisterModal from "@/components/main/ClientModal";
-import {createClient} from '@/utils/api';
+import { createClient } from "@/utils/api";
 
 // 거래처 신규 작성 타입 정의
 interface Client {
@@ -23,21 +29,23 @@ interface Client {
   isFavorite: boolean;
 }
 
-
-const Header = ({onClientRegistered}: { onClientRegistered: () => void }) => {
+const Header = ({ onClientRegistered }: { onClientRegistered: () => void }) => {
   // 거래처 등록 모달의 열림/닫힘 상태
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
-  const handleRegister = useCallback(async (client: Client) => {
-    try {
-      await createClient(client); // 서버에 거래처 생성 요청
-      setIsRegisterModalOpen(false); // 모달 닫기
-      onClientRegistered(); // 거래처 등록 후 리스트 업데이트
-    } catch (error) {
-      console.error("거래처 등록 실패:", error);
-      alert("거래처 등록에 실패했습니다.");
-    }
-  }, [onClientRegistered]);
+  const handleRegister = useCallback(
+    async (client: Client) => {
+      try {
+        await createClient(client); // 서버에 거래처 생성 요청
+        setIsRegisterModalOpen(false); // 모달 닫기
+        onClientRegistered(); // 거래처 등록 후 리스트 업데이트
+      } catch (error) {
+        console.error("거래처 등록 실패:", error);
+        alert("거래처 등록에 실패했습니다.");
+      }
+    },
+    [onClientRegistered],
+  );
 
   return (
     <header>
@@ -47,21 +55,28 @@ const Header = ({onClientRegistered}: { onClientRegistered: () => void }) => {
             <h1>농협 369번</h1>
           </Link>
           <div className="btn-area">
-            <button className="primary default" onClick={() => setIsRegisterModalOpen(true)}>
-              <FontAwesomeIcon icon={faPlus} className="icon"/>
+            <button
+              className="primary default"
+              onClick={() => setIsRegisterModalOpen(true)}
+            >
+              <FontAwesomeIcon icon={faPlus} className="icon" />
               신규 등록
             </button>
             <Link href="/balance" className="default">
-              <FontAwesomeIcon icon={faWonSign} className="icon"/>
+              <FontAwesomeIcon icon={faWonSign} className="icon" />
               잔금 확인
             </Link>
             <Link href="/client-monthly" className="default">
-              <FontAwesomeIcon icon={faWallet} className="icon"/>
+              <FontAwesomeIcon icon={faWallet} className="icon" />
               매출 현황
             </Link>
             <Link href="/sales-monthly" className="default">
-              <FontAwesomeIcon icon={faCoins} className="icon"/>
+              <FontAwesomeIcon icon={faCoins} className="icon" />
               판매 현황
+            </Link>
+            <Link href="/clients" className="default">
+              <FontAwesomeIcon icon={faUser} className="icon" />
+              거래처 관리
             </Link>
           </div>
         </div>

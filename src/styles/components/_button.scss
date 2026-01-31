@@ -91,3 +91,57 @@ a {
     background: #a65e4b;
   }
 }
+
+//토글 버튼
+$switch-width: 46px;
+$switch-height: 26px;
+$knob-size: 20px;
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .slider {
+    width: $switch-width;
+    height: $switch-height;
+    border-radius: 999px;
+    background: #d6d6d6;
+    position: relative;
+    transition: background 0.2s ease;
+
+    &::after {
+      content: "";
+      width: $knob-size;
+      height: $knob-size;
+      border-radius: 50%;
+      background: #fff;
+      position: absolute;
+      top: 50%;
+      left: 3px;
+      transform: translateY(-50%);
+      transition: left 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  input:checked + .slider {
+    background: #2f6fed;
+
+    &::after {
+      left: calc(#{$switch-width} - #{$knob-size} - 3px);
+    }
+  }
+
+  &.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

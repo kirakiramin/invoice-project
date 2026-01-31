@@ -1,8 +1,7 @@
-import React from 'react';
 import HeaderHome from "@/components/header/HeaderHome";
 import ClientAmountSection from "@/components/common/ClientAmountSection";
-import {getClientSales} from "@/utils/api";
-import {getMonthsSince} from "@/utils/getMonthsSince";
+import { getClientSales } from "@/utils/api";
+import { getMonthsSince } from "@/utils/getMonthsSince";
 
 // 클라이언트 매출 정보를 정의하는 인터페이스
 interface ClientSales {
@@ -48,10 +47,9 @@ const ClientMonthlyPage = async () => {
   // 총 매출 합계 계산
   const totalSalesSum = tableData.reduce((sum, item) => sum + item.amount, 0);
 
-
   return (
     <>
-      <HeaderHome/>
+      <HeaderHome />
       <main className="site-content">
         <div className="container">
           <ClientAmountSection

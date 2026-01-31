@@ -8,6 +8,10 @@
   width: 100%;
   height: calc(100vh - 88px);
   overflow-y: auto;
+
+  &.w-900 {
+    width: 950px;
+  }
 }
 
 table {
@@ -142,6 +146,41 @@ table {
       width: 24%;
       text-align: right;
       padding: 10px 25px;
+    }
+  }
+}
+
+/* ----------------------
+거래처 메인 노출 관리 리스트
+---------------------- */
+.clients-table {
+  thead {
+    position: sticky;
+    top: -1px;
+    z-index: 10;
+  }
+
+  td {
+    padding: 8px 18px;
+    font-weight: 500;
+
+    &.id,
+    &.itemId {
+      width: 50px;
+    }
+
+    &.store {
+      width: 400px;
+    }
+
+    &.contact {
+      width: 200px;
+    }
+    &.hide {
+      width: 150px;
+    }
+    &.delete {
+      width: 150px;
     }
   }
 }

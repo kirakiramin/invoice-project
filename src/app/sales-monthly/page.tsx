@@ -1,9 +1,8 @@
-export const dynamic = 'force-dynamic';
-import React from 'react';
+export const dynamic = "force-dynamic";
 import HeaderHome from "@/components/header/HeaderHome";
 import ProductAmountSection from "@/components/common/ProductAmountSection";
-import {getMonthlySales} from "@/utils/api";
-import {getMonthsSince} from "@/utils/getMonthsSince";
+import { getMonthlySales } from "@/utils/api";
+import { getMonthsSince } from "@/utils/getMonthsSince";
 
 interface ItemSales {
   name: string;
@@ -32,7 +31,7 @@ const SalesMonthlyPage = async () => {
     console.error("초기 판매 데이터 불러오기 실패:", error);
   }
 
-// 테이블에 전달할 형태로 변환
+  // 테이블에 전달할 형태로 변환
   const tableData = salesData.map((item: ItemSales, index: number) => ({
     itemId: index + 1,
     name: item.name,
@@ -41,17 +40,17 @@ const SalesMonthlyPage = async () => {
     amount: item.amount,
   }));
 
-
   return (
     <>
-      <HeaderHome/>
+      <HeaderHome />
       <main className="site-content">
         <div className="container">
           <ProductAmountSection
             data={tableData}
             months={months}
             initialMonth={currentMonth}
-            label="판매"/>
+            label="판매"
+          />
         </div>
       </main>
     </>
