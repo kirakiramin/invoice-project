@@ -10,7 +10,8 @@
   //  margin: 1mm;
   //}
 
-  body, html {
+  body,
+  html {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -23,11 +24,12 @@
 
   * {
     box-sizing: border-box;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
   }
 
-  header, footer {
+  header,
+  footer {
     display: none !important;
   }
 
@@ -35,6 +37,8 @@
     width: 100% !important;
     border-collapse: collapse !important;
     margin: 0 !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
   }
 
   table th,
@@ -45,6 +49,19 @@
     word-break: break-word !important;
     white-space: normal !important;
     border: 1px solid #ccc !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+  tfoot {
+    display: table-footer-group !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: auto !important;
   }
 
   .invoice-print {
@@ -70,9 +87,9 @@
       box-sizing: border-box !important;
       font-size: 12px !important;
       line-height: 1 !important;
-      overflow: hidden !important;
-      page-break-inside: avoid !important;
-      break-inside: avoid !important;
+      overflow: visible !important;
+      page-break-inside: auto !important;
+      break-inside: auto !important;
     }
 
     .print-half > *:first-child {
@@ -86,10 +103,15 @@
     padding-top: 0 !important;
 
     .invoice-table {
-
-      td.price, td.total {
+      td.price,
+      td.total {
         text-align: right !important;
         padding: 3px 10px !important;
+      }
+
+      tbody {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
       }
     }
   }
@@ -107,6 +129,8 @@
   }
   .invoice-header {
     padding-bottom: 0;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
   .invoice-header p {
     font-size: 14px !important;
@@ -115,7 +139,7 @@
     font-size: 12px !important;
   }
   .invoice-header .header-right p strong {
-    font-size: 14px !important;
+    font-size: 13px !important;
   }
   .invoice-header .header-left .store strong {
     font-size: 17px !important;
@@ -132,20 +156,25 @@
   .amount-table {
     td.amount {
       text-align: right !important;
-      padding: 10px 18px !important;
+      padding: 3px 18px !important;
     }
 
     td.right {
       text-align: right !important;
-      padding: 10px 18px !important;
+      padding: 3px 18px !important;
     }
   }
 
   .invoice-footer {
     font-size: 15px;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
+
   .table-container {
     height: 100% !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
   }
 }
 
