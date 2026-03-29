@@ -7,6 +7,9 @@ import {
 } from "@/utils/clientVisibility";
 import { formatPhone } from "@/utils/format";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+
 // 거래처 타입 정의 (메인과 동일)
 interface Client {
   id: number | null;
@@ -48,6 +51,7 @@ const ClientVisibilityTable = () => {
     return [...clients].sort((a, b) => a.name.localeCompare(b.name, "ko-KR"));
   }, [clients]);
 
+  // 노출 토글 핸들러
   const handleToggleHidden = (clientId: number) => {
     const next = hiddenIds.includes(clientId)
       ? hiddenIds.filter((id) => id !== clientId)
@@ -60,6 +64,31 @@ const ClientVisibilityTable = () => {
 
     // localStorage 저장 + 메인 반영 이벤트 발행(유틸 내부에서 처리)
     setHiddenClientIds(next);
+  };
+
+  // 삭제 핸들러
+  const handleDelete = async (client: Client) => {
+    if (!client.id) return;
+
+    // 시스템 얼럿(Confirm) 호출
+    const isConfirmed = window.confirm(
+      `"${client.name}"을(를) 정말 삭제하시겠습니까?\n삭제하면 되돌릴 수 없습니다.`,
+    );
+
+    if (isConfirmed) {
+      try {
+        // 삭제 API 연동 부분 (현재 비워둠)
+        // console.log(`${client.id}번 거래처 삭제 처리 예정`);
+
+        // 성공 시 화면에서 제거 로직 예시:
+        // setClients(prev => prev.filter(c => c.id !== client.id));
+
+        alert("삭제 처리가 완료되었습니다.");
+      } catch (error) {
+        console.error("삭제 중 오류 발생:", error);
+        alert("삭제 처리에 실패했습니다.");
+      }
+    }
   };
 
   if (loading) {
@@ -127,8 +156,17 @@ const ClientVisibilityTable = () => {
                   </label>
                 </td>
 
-                {/* 삭제는 비워둠 */}
-                <td className="delete" />
+                <td className="delete">
+                  <button
+                    type="button"
+                    className="btn-delete"
+                    disabled={disabled}
+                    onClick={() => handleDelete(client)}
+                    title="거래처 삭제"
+                  >
+                    <FontAwesomeIcon icon={faTrashCan} size="lg" />
+                  </button>
+                </td>
               </tr>
             );
           })

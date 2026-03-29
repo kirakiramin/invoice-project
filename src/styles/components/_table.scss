@@ -181,6 +181,24 @@ table {
     }
     &.delete {
       width: 150px;
+
+      .btn-delete {
+        cursor: pointer;
+        padding: 5px;
+        transition: all 0.2s ease-in-out;
+
+        // 마우스를 올렸을 때 스타일
+        &:hover:not(:disabled) {
+          color: #ff4d4f;
+          transform: scale(1.1);
+        }
+
+        // 비활성화 상태
+        &:disabled {
+          color: #e1e1e1;
+          cursor: not-allowed;
+        }
+      }
     }
   }
 }
