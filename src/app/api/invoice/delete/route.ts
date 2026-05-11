@@ -41,7 +41,7 @@ export async function DELETE(req: Request) {
       if (latestInvoice.balance !== 0) {
         return {
           success: false,
-          message: "가장 최신 invoice의 balance가 0일 때만 삭제할 수 있습니다.",
+          message: "아직 정산되지 않은 잔금이 남아 있어 삭제할 수 없습니다.",
         };
       }
 
