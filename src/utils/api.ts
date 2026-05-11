@@ -1,4 +1,4 @@
-import {InvoiceRequest} from "@/types/common";
+import { InvoiceRequest } from "@/types/common";
 
 interface Client {
   id: number | null;
@@ -6,6 +6,7 @@ interface Client {
   phone: string;
   note?: string;
   isFavorite: boolean;
+  isHidden?: boolean;
 }
 
 // 고객 정보 신규 등록 API
@@ -32,10 +33,10 @@ export const login = async () => {
 // 고객 정보 신규 등록 api
 export const createClient = async (clientData: Client) => {
   try {
-    const response = await fetch('/api/clients/create', {
-      method: 'POST',
+    const response = await fetch("/api/clients/create", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(clientData),
     });
@@ -46,7 +47,7 @@ export const createClient = async (clientData: Client) => {
 
     return await response.json();
   } catch (error) {
-    console.error('Failed to create client:', error);
+    console.error("Failed to create client:", error);
     throw error;
   }
 };
@@ -66,15 +67,15 @@ export const getClientById = async (id: number) => {
 // 고객 정보 업데이트 api
 export const updateClient = async (clientData: Client) => {
   if (clientData.id == null) {
-    alert('업데이트하려면 유효한 ID가 필요합니다.');
+    alert("업데이트하려면 유효한 ID가 필요합니다.");
     return;
   }
 
   try {
-    const response = await fetch('/api/clients/update', {
-      method: 'PUT',
+    const response = await fetch("/api/clients/update", {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(clientData),
     });
@@ -85,7 +86,7 @@ export const updateClient = async (clientData: Client) => {
 
     return await response.json();
   } catch (error) {
-    console.error('Failed to update client:', error);
+    console.error("Failed to update client:", error);
     throw error;
   }
 };
@@ -96,15 +97,15 @@ export const updateFavorite = async (clientData: {
   isFavorite: boolean;
 }) => {
   if (clientData.id == null) {
-    alert('업데이트하려면 유효한 ID가 필요합니다.');
+    alert("업데이트하려면 유효한 ID가 필요합니다.");
     return;
   }
 
   try {
-    const response = await fetch('/api/clients/favorite', {
-      method: 'PUT',
+    const response = await fetch("/api/clients/favorite", {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(clientData),
     });
@@ -115,15 +116,15 @@ export const updateFavorite = async (clientData: {
 
     return await response.json();
   } catch (error) {
-    console.error('Failed to update client:', error);
+    console.error("Failed to update client:", error);
     throw error;
   }
 };
 
 //  고객 전체 리스트 호출 api
-export const getClientList = async () => {
+export const getClientList = async (includeHidden = false) => {
   try {
-    const response = await fetch('/api/clients'); // API 엔드포인트 호출
+    const response = await fetch(`/api/clients?includeHidden=${includeHidden}`); // API 엔드포인트 호출
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -131,8 +132,38 @@ export const getClientList = async () => {
 
     return data.clients;
   } catch (error) {
-    console.error('Error fetching clients:', error);
+    console.error("Error fetching clients:", error);
     return [];
+  }
+};
+
+// 고객 메인 노출 상태 업데이트 api
+export const updateClientVisibility = async (clientData: {
+  id: number;
+  isHidden: boolean;
+}) => {
+  if (clientData.id == null) {
+    alert("업데이트하려면 유효한 ID가 필요합니다.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/clients/visibility", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(clientData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to update client visibility:", error);
+    throw error;
   }
 };
 
@@ -145,7 +176,9 @@ export const getClientBalance = async () => {
       throw new Error("환경변수 NEXT_PUBLIC_BASE_URL이 설정되지 않았습니다.");
     }
 
-    const response = await fetch(`${baseUrl}/api/remain`, {cache: "no-store"});
+    const response = await fetch(`${baseUrl}/api/remain`, {
+      cache: "no-store",
+    });
 
     if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 
@@ -166,7 +199,9 @@ export const getClientSales = async (month: string) => {
       throw new Error("환경변수 NEXT_PUBLIC_BASE_URL이 설정되지 않았습니다.");
     }
 
-    const response = await fetch(`${baseUrl}/api/sales/client?month=${month}`, {cache: "no-store"});
+    const response = await fetch(`${baseUrl}/api/sales/client?month=${month}`, {
+      cache: "no-store",
+    });
 
     if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 
@@ -178,7 +213,6 @@ export const getClientSales = async (month: string) => {
     throw error;
   }
 };
-
 
 // Invoice API
 // 거래 내역 보기에서 리스트 클릭시 해당 거래 내역을 호출하는 api
@@ -222,10 +256,10 @@ export const getLatestInvoiceByClientId = async (clientId: number) => {
 // 거래 내역 신규 등록 api
 export const createInvoice = async (invoiceData: InvoiceRequest) => {
   try {
-    const response = await fetch('/api/invoice/create', {
-      method: 'POST',
+    const response = await fetch("/api/invoice/create", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(invoiceData),
     });
@@ -236,18 +270,20 @@ export const createInvoice = async (invoiceData: InvoiceRequest) => {
 
     return await response.json();
   } catch (error) {
-    console.error('Failed to create invoice:', error);
+    console.error("Failed to create invoice:", error);
     throw error;
   }
 };
 
 // 거래 내역 수정 api
-export const updateInvoice = async (invoiceData: InvoiceRequest & { id: number }) => {
+export const updateInvoice = async (
+  invoiceData: InvoiceRequest & { id: number },
+) => {
   try {
-    const response = await fetch('/api/invoice/update', {
-      method: 'PUT',
+    const response = await fetch("/api/invoice/update", {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(invoiceData),
     });
@@ -258,23 +294,25 @@ export const updateInvoice = async (invoiceData: InvoiceRequest & { id: number }
 
     return await response.json();
   } catch (error) {
-    console.error('Failed to update invoice:', error);
+    console.error("Failed to update invoice:", error);
     throw error;
   }
 };
-
 
 // 월별 품목별 판매 현황을 가져오는 API
 export const getMonthlySales = async (month: string) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     if (!baseUrl) {
-      throw new Error('환경변수 NEXT_PUBLIC_BASE_URL이 설정되지 않았습니다.');
+      throw new Error("환경변수 NEXT_PUBLIC_BASE_URL이 설정되지 않았습니다.");
     }
 
-    const response = await fetch(`${baseUrl}/api/sales/monthly?month=${month}`, {
-      cache: 'no-store',
-    });
+    const response = await fetch(
+      `${baseUrl}/api/sales/monthly?month=${month}`,
+      {
+        cache: "no-store",
+      },
+    );
 
     if (!response.ok) {
       throw new Error(`API 요청 실패: ${response.statusText}`);
@@ -284,7 +322,7 @@ export const getMonthlySales = async (month: string) => {
 
     return result; // [{ name, spec, total_quantity, total_revenue }, ...]
   } catch (error) {
-    console.error('월별 인보이스 요약 조회 실패:', error);
+    console.error("월별 인보이스 요약 조회 실패:", error);
     throw error;
   }
 };

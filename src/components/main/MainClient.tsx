@@ -3,9 +3,9 @@
  *
  * 거래처 메인 페이지
  * - 거래처 목록을 서버에서 불러와 출력
+ * - isHidden=false 인 거래처만 출력
  * - 상단에 Header (거래처 등록 버튼 포함)
  * - 하단에 ClientList 컴포넌트로 리스트 렌더링
- * - 숨김 상태 변경 이벤트를 구독하여 즉시 반영
  */
 
 "use client";
@@ -13,10 +13,6 @@ import { useState, useEffect } from "react";
 import Header from "@/components/header/Header";
 import ClientList from "@/components/main/ClientList";
 import { getClientList } from "@/utils/api";
-import {
-  CLIENT_VISIBILITY_EVENT,
-  getHiddenClientIds,
-} from "@/utils/clientVisibility";
 
 // 거래처 타입 정의
 interface Client {
@@ -25,6 +21,7 @@ interface Client {
   phone: string;
   note?: string;
   isFavorite: boolean;
+  isHidden: boolean;
 }
 
 const MainClient = () => {
@@ -33,37 +30,9 @@ const MainClient = () => {
   // 거래처 목록을 가져와 상태에 저장하는 함수
   const fetchClients = async () => {
     try {
-      const clientList = (await getClientList()) as Client[];
-
-      console.log("[MAIN] fetched clientList length =", clientList.length);
-      console.log(
-        "[MAIN] sample ids =",
-        clientList.slice(0, 5).map((c) => [c.id, typeof c.id]),
-      );
-
-      const hiddenIds = getHiddenClientIds();
-      console.log("[MAIN] hiddenIds =", hiddenIds);
-
-      const visibleClients = clientList.filter((c) => {
-        const id = c.id === null ? null : Number(c.id);
-        const hidden =
-          id !== null && Number.isFinite(id) && hiddenIds.includes(id);
-
-        if (id !== null) {
-          console.log("[MAIN] check", {
-            rawId: c.id,
-            normalizedId: id,
-            hidden,
-          });
-        }
-
-        return !hidden;
-      });
-
-      console.log("[MAIN] visibleClients length =", visibleClients.length);
-
+      const clientList = (await getClientList(false)) as Client[];
       setClients(
-        [...visibleClients].sort(
+        [...clientList].sort(
           (a, b) =>
             Number(b.isFavorite) - Number(a.isFavorite) ||
             a.name.localeCompare(b.name, "ko-KR"),
@@ -76,16 +45,6 @@ const MainClient = () => {
 
   useEffect(() => {
     fetchClients();
-
-    // 관리 페이지에서 토글을 바꾸면 즉시 반영되도록 이벤트 구독
-    const onVisibilityChanged = () => {
-      fetchClients();
-    };
-
-    window.addEventListener(CLIENT_VISIBILITY_EVENT, onVisibilityChanged);
-    return () =>
-      window.removeEventListener(CLIENT_VISIBILITY_EVENT, onVisibilityChanged);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

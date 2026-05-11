@@ -1,10 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import { getClientList } from "@/utils/api";
-import {
-  getHiddenClientIds,
-  setHiddenClientIds,
-} from "@/utils/clientVisibility";
+import { getClientList, updateClientVisibility } from "@/utils/api";
 import { formatPhone } from "@/utils/format";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,11 +13,11 @@ interface Client {
   phone: string;
   note?: string;
   isFavorite: boolean;
+  isHidden: boolean;
 }
 
 const ClientVisibilityTable = () => {
   const [clients, setClients] = useState<Client[]>([]);
-  const [hiddenIds, setHiddenIds] = useState<number[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string>("");
 
@@ -32,14 +28,12 @@ const ClientVisibilityTable = () => {
       setErrorMsg("");
 
       try {
-        const list: Client[] = await getClientList();
+        const list: Client[] = await getClientList(true);
         setClients(list);
       } catch (e) {
         console.error("거래처 목록 가져오기 실패:", e);
         setErrorMsg("거래처 목록을 불러오지 못했습니다.");
       } finally {
-        // localStorage에서 숨김 목록 로드
-        setHiddenIds(getHiddenClientIds());
         setLoading(false);
       }
     };
@@ -52,18 +46,24 @@ const ClientVisibilityTable = () => {
   }, [clients]);
 
   // 노출 토글 핸들러
-  const handleToggleHidden = (clientId: number) => {
-    const next = hiddenIds.includes(clientId)
-      ? hiddenIds.filter((id) => id !== clientId)
-      : [...hiddenIds, clientId];
+  const handleToggleHidden = async (
+    clientId: number,
+    nextIsHidden: boolean,
+  ) => {
+    const previousClients = clients;
+    const nextClients = clients.map((client) =>
+      client.id === clientId ? { ...client, isHidden: nextIsHidden } : client,
+    );
 
-    console.log("[ADMIN] next hiddenIds =", next);
+    setClients(nextClients);
 
-    // 화면 즉시 반영
-    setHiddenIds(next);
-
-    // localStorage 저장 + 메인 반영 이벤트 발행(유틸 내부에서 처리)
-    setHiddenClientIds(next);
+    try {
+      await updateClientVisibility({ id: clientId, isHidden: nextIsHidden });
+    } catch (error) {
+      console.error("거래처 노출 상태 업데이트 실패:", error);
+      setClients(previousClients);
+      alert("노출 상태 변경에 실패했습니다.");
+    }
   };
 
   // 삭제 핸들러
@@ -130,7 +130,6 @@ const ClientVisibilityTable = () => {
           sortedClients.map((client, index) => {
             const disabled = client.id === null;
             const id = client.id ?? -1;
-            const isHidden = !disabled && hiddenIds.includes(id);
 
             return (
               <tr key={`${client.id ?? "null"}-${client.name}-${index}`}>
@@ -144,11 +143,11 @@ const ClientVisibilityTable = () => {
                   <label className={`switch ${disabled ? "is-disabled" : ""}`}>
                     <input
                       type="checkbox"
-                      checked={!isHidden && !disabled}
+                      checked={!client.isHidden && !disabled}
                       disabled={disabled}
-                      onChange={() => {
+                      onChange={(e) => {
                         if (disabled) return;
-                        handleToggleHidden(id);
+                        handleToggleHidden(id, !e.target.checked);
                       }}
                       aria-label={`${client.name} 메인 노출 토글`}
                     />

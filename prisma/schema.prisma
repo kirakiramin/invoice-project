@@ -17,6 +17,7 @@ model Client {
   balance    Int       @default(0)
   createDate DateTime  @default(now())
   updateDate DateTime  @default(now())
+  isHidden    Boolean  @default(false)
   invoices   Invoice[]
 
   @@map("Client")
