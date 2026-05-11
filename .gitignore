@@ -42,3 +42,12 @@ next-env.d.ts
 
 # JetBrains IDE 설정 폴더 제외
 .idea/
+
+# Supabase Local Settings & Data
+supabase/config.toml
+supabase/.branches/
+supabase/.temp/
+supabase/seed.sql
+
+# DB backups
+backups
