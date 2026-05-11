@@ -1,6 +1,10 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import { getClientList, updateClientVisibility } from "@/utils/api";
+import {
+  getClientList,
+  updateClientVisibility,
+  deleteClientWithInvoices,
+} from "@/utils/api";
 import { formatPhone } from "@/utils/format";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -79,14 +83,17 @@ const ClientVisibilityTable = () => {
       try {
         // 삭제 API 연동 부분 (현재 비워둠)
         // console.log(`${client.id}번 거래처 삭제 처리 예정`);
+        await deleteClientWithInvoices(client.id);
 
         // 성공 시 화면에서 제거 로직 예시:
-        // setClients(prev => prev.filter(c => c.id !== client.id));
+        setClients((prev) => prev.filter((c) => c.id !== client.id));
 
         alert("삭제 처리가 완료되었습니다.");
       } catch (error) {
         console.error("삭제 중 오류 발생:", error);
-        alert("삭제 처리에 실패했습니다.");
+        alert(
+          error instanceof Error ? error.message : "삭제 처리에 실패했습니다.",
+        );
       }
     }
   };
